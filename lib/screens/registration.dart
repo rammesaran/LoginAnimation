@@ -6,10 +6,189 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
+  bool monVal = true;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    final emailField = TextField(
+      style: TextStyle(fontSize: 20.0),
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          hintText: "UserName",
+          border:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(16.0))),
+    );
+
+    final passwordField = TextField(
+      obscureText: true,
+      style: TextStyle(fontSize: 20.0),
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          hintText: "Password",
+          border:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(16.0))),
+    );
+    final email = TextField(
+      obscureText: false,
+      style: TextStyle(fontSize: 20.0),
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          hintText: "Email",
+          border:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(16.0))),
+    );
+    final loginbutton = Material(
+      elevation: 5.0,
+      borderRadius: BorderRadius.horizontal(),
+      color: Color(0xff0097A7),
+      child: MaterialButton(
+        minWidth: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.all(20.0),
+        onPressed: () {},
+        child: Text(
+          "Sign In",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20.0,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+    return Scaffold(
+      body: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: LayoutBuilder(builder:
+              (BuildContext context, BoxConstraints viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
+                child: Container(
+                  color: Color(0xff006064),
+                  child: Container(
+                    child: IntrinsicHeight(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.35,
+                            width: MediaQuery.of(context).size.width,
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Container(
+                                        child: Image(
+                                          image: AssetImage(
+                                            'images/MaskGroup_2.png',
+                                          ),
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Text(
+                                        "Create New Account",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontStyle: FontStyle.normal),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(56.0),
+                                        topRight: Radius.circular(56.0))),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      SizedBox(height: 48.0),
+                                      emailField,
+                                      SizedBox(height: 24.0),
+                                      passwordField,
+                                      SizedBox(
+                                        height: 24.0,
+                                      ),
+                                      email,
+                                      SizedBox(
+                                        height: 24.0,
+                                      ),
+                                      Expanded(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Checkbox(
+                                                value: monVal,
+                                                onChanged: (bool value) {
+                                                  setState(() {
+                                                    monVal = value;
+                                                  });
+                                                }),
+                                            Text(
+                                              'I have accepted the',
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w900),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            InkWell(
+                                              onTap: () {},
+                                              child: Text(
+                                                'Terms',
+                                                style: TextStyle(
+                                                    color: Color(0xff0097A7),
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.w900),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )),
+                          ),
+                          loginbutton,
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }),
+        ),
+      ),
     );
   }
 }

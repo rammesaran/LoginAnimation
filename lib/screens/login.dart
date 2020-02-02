@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           Text(
             'Don\'t have an account ?',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
           ),
           SizedBox(
             width: 10,
@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
         fontSize: 20.0,
       ),
       decoration: InputDecoration(
+        prefixIcon: Icon(Icons.account_circle),
         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         hintText: 'UserName',
         border: OutlineInputBorder(
