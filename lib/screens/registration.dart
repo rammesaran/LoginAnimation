@@ -1,3 +1,4 @@
+import 'package:animation/screens/login.dart';
 import 'package:flutter/material.dart';
 
 class Registration extends StatefulWidget {
@@ -6,13 +7,20 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
-  bool monVal = true;
+  bool monVal = false;
+  final _text = TextEditingController();
+  final _password = TextEditingController();
+  final _email = TextEditingController();
+  bool _validate = false;
 
   @override
   Widget build(BuildContext context) {
     final emailField = TextField(
+      controller: _text,
       style: TextStyle(fontSize: 20.0),
       decoration: InputDecoration(
+          errorText: _validate ? 'Please enter UserName' : null,
+          prefixIcon: Icon(Icons.account_circle),
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "UserName",
           border:
@@ -20,22 +28,28 @@ class _RegistrationState extends State<Registration> {
     );
 
     final passwordField = TextField(
+      controller: _password,
       obscureText: true,
       style: TextStyle(fontSize: 20.0),
       decoration: InputDecoration(
+          errorText: _validate ? 'Please enter Password' : null,
+          prefixIcon: Icon(Icons.lock),
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Password",
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(16.0))),
     );
     final email = TextField(
+      controller: _email,
       obscureText: false,
       style: TextStyle(fontSize: 20.0),
       decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Email",
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(16.0))),
+        prefixIcon: Icon(Icons.email),
+        errorText: _validate ? 'Please enter Email' : null,
+        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        hintText: "Email",
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+      ),
     );
     final loginbutton = Material(
       elevation: 5.0,
@@ -44,9 +58,18 @@ class _RegistrationState extends State<Registration> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.all(20.0),
-        onPressed: () {},
+        onPressed: () {
+          setState(() {
+            _text.text.isEmpty ? _validate = true : Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomePage()));
+            _password.text.isEmpty ? _validate = true : Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomePage()));
+            _email.text.isEmpty ? _validate = true :  Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomePage()));
+          });
+        },
         child: Text(
-          "Sign In",
+          "SIGN UP",
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 20.0,
@@ -89,7 +112,7 @@ class _RegistrationState extends State<Registration> {
                                       child: Container(
                                         child: Image(
                                           image: AssetImage(
-                                            'images/MaskGroup_2.png',
+                                            'images/MaskGroup_1.png',
                                           ),
                                           fit: BoxFit.fitWidth,
                                         ),
@@ -102,9 +125,9 @@ class _RegistrationState extends State<Registration> {
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,
-                                            fontSize: 18,
+                                            fontSize: 20,
                                             fontStyle: FontStyle.normal),
-                                        textAlign: TextAlign.center,
+                                        textAlign: TextAlign.start,
                                       ),
                                     )
                                   ],
@@ -154,7 +177,7 @@ class _RegistrationState extends State<Registration> {
                                             Text(
                                               'I have accepted the',
                                               style: TextStyle(
-                                                  fontSize: 15,
+                                                  fontSize: 18,
                                                   fontWeight: FontWeight.w900),
                                             ),
                                             SizedBox(
@@ -163,10 +186,10 @@ class _RegistrationState extends State<Registration> {
                                             InkWell(
                                               onTap: () {},
                                               child: Text(
-                                                'Terms',
+                                                'Conditions',
                                                 style: TextStyle(
                                                     color: Color(0xff0097A7),
-                                                    fontSize: 20,
+                                                    fontSize: 18,
                                                     fontWeight:
                                                         FontWeight.w900),
                                               ),

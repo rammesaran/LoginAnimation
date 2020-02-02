@@ -1,4 +1,5 @@
 import 'package:animation/screens/registration.dart';
+import 'package:animation/screens/splashscreen.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -7,6 +8,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _text = TextEditingController();
+  final _password = TextEditingController();
+  bool _validate = false;
   @override
   Widget build(BuildContext context) {
     final forgotpassword = Container(
@@ -28,7 +32,7 @@ class _HomePageState extends State<HomePage> {
                   MaterialPageRoute(builder: (context) => Registration()));
             },
             child: Text(
-              'Sign Up',
+              'SIGN UP',
               style: TextStyle(
                   color: Color(0xff0097A7),
                   fontSize: 20,
@@ -38,26 +42,39 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
-    final username = TextField(
+    final username = Form(
+   
+      child: TextFormField(
+        controller: _text,
+      
       style: TextStyle(
         fontSize: 20.0,
       ),
       decoration: InputDecoration(
+         errorText: _validate ? 'Please enter UserName' : null,
         prefixIcon: Icon(Icons.account_circle),
         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        hintText: 'UserName',
+        hintText: 'Username',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
       ),
+    ),
     );
+    
+    
     final password = TextField(
+      controller: _password,
+      obscureText: true,
       style: TextStyle(
         fontSize: 20.0,
       ),
       decoration: InputDecoration(
+         errorText: _validate ? 'Please enter Password' : null,
+        prefixIcon: Icon(Icons.lock),
         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        hintText: 'password',
+        hintText: 'Password',
+        
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
@@ -71,9 +88,18 @@ class _HomePageState extends State<HomePage> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.all(20.0),
-        onPressed: () {},
+        onPressed: () {
+setState(() {
+                  _text.text.isEmpty ? _validate = true : Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SplashScreen()));
+                  _password.text.isEmpty ? _validate = true :
+                  _text.text.isEmpty ? _validate = true : Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SplashScreen()));
+                });
+ 
+        },
         child: Text(
-          "Sign In",
+          "SIGN IN",
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 20.0,
@@ -86,65 +112,103 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       body: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 100.0, left: 30.0, bottom: 50.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text('Welcome',
-                      style: TextStyle(
-                          fontSize: 40.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold))
-                ],
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: LayoutBuilder(builder:
+              (BuildContext context, BoxConstraints viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
                 child: Container(
-                  padding: EdgeInsets.only(
-                    left: 20,
-                    right: 20,
-                    top: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30),
-                      topLeft: Radius.circular(30),
+                  color: Color(0xff006064),
+                  child: Container(
+                    child: IntrinsicHeight(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.35,
+                            width: MediaQuery.of(context).size.width,
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Container(
+                                        child: Image(
+                                          image: AssetImage(
+                                            'images/MaskGroup_2.png',
+                                          ),
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Text(
+                                        
+                                        "Welcome\n to Room Control",
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontStyle: FontStyle.normal),
+                                      
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(56.0),
+                                      topRight: Radius.circular(56.0))),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    SizedBox(height: 20.0),
+                                    username,
+                                    SizedBox(height: 20.0),
+                                    password,
+                                    SizedBox(
+                                      height: 24.0,
+                                    ),
+                                    loginbutton,
+                                    SizedBox(
+                                      height: 24.0,
+                                    ),
+                                    forgotpassword,
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 50.0),
-                      username,
-                      SizedBox(height: 30.0),
-                      password,
-                      SizedBox(height: 30.0),
-                      loginbutton,
-                      SizedBox(height: 10.0),
-                      forgotpassword,
-                    ],
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/MaskGroup1.png'),
-            fit: BoxFit.cover,
-          ),
-          gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-            Color(0xff006064),
-            Color(0xff006064),
-            Color(0xff006064)
-          ]),
+            );
+          }),
         ),
       ),
     );
